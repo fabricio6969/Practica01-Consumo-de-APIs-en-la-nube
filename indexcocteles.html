@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>API COCTELES</title>
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+<header class="header_area" id="header">
+
+    <h1>Utilizar servicio con un API de Cocteles</h1>
+    </header>
+<body>
+    <div class="container my-5 text-center">
+        <button class="btn btn-danger w-100" onclick="traer()">Obtener los Datos</button>
+        <div style="text-align: center;">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#Codigo</th>
+                        <th scope="col">Nombre del Coctel</th>
+                    </tr>
+                </thead>
+                <tbody id="contenido">
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        var contenido = document.querySelector('#contenido')
+
+        function traer() {
+            fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?f=a')
+                .then(res => res.json())
+                .then(data => {
+                 console.log(data)
+                    tabla(data)
+                })
+        }
+
+        function tabla(data) {
+            // console.log(datos)
+            contenido.innerHTML = ''
+            for(var i =0; i< data.drinks.length; i++){
+                // console.log(valor.nombre)
+                contenido.innerHTML += `
+                <tr>
+                    <th scope="row">${ data.drinks[i].idDrink }</th>
+                    <td>${ data.drinks[i].strDrink }</td>
+                </tr>
+                
+                `
+            }
+        }
+    </script>
+</body>
+
+</html>
